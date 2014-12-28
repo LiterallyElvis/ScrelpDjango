@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+    <form action="/search" method="get">
+        Address<sup>*</sup>: <input type="text" name="a" value="603 Red River St. Austin, TX 78701"><br>
+        Search Term: <input type="text" name="t" value="pizza"><br>
+        Radius: <input type="number" name="r" value="1"><br>
+        Density: <input type="number" name="d" value="1" max="5"><br>
+        Category: <input type="text" name="c" value=""><br><br>
+
+        {% if visited %}
+        ConsumerKey: <input type="text" name="con_key" value=""><br>
+        ConsumerSecret: <input type="text" name="con_secret" value=""><br>
+        Token: <input type="text" name="token" value=""><br>
+        TokenSecret: <input type="text" name="token_secret" value=""><br>
+        {% endif %}
+        <input type="submit" value="Search"><br>
+    </form>
+
+        {% if not visited %}
+        <form action="/reset" method="get">
+            <input type="submit" value="Clear API Credentials">
+        </form>
+        {% endif %}
+
+    <sub><sup>*</sup>mandatory</sub>
+</body>
+</html>
