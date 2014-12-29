@@ -5,11 +5,7 @@ import time
 
 
 def home(request):
-    if "visited" in request.session:
-        show_api_fields = False
-    else:
-        show_api_fields = True
-    return render(request, "home.html", {"visited": show_api_fields})
+    return render(request, "home.html")
 
 
 def result(request):
@@ -28,22 +24,12 @@ def result(request):
                  request.session["token"],
                  request.session["token_secret"]]
     else:
-        creds = settings.YELP_CREDENTIALS
+        creds = settings.YELP_CREDENTIALS  # demo API credentials.
 
     start = time.time()
     origin = geog.get_geocode(args)
     coords = geog.generate_coords(origin, int(args["density"]), int(args["radius"]))
     yelp_results = parse.scrape_yelp(args, coords, creds)
-    """
-    if not yelp_results:
-        return render(request, "error.html")
-    if "visited" not in request.session:
-        request.session["visited"] = True
-        request.session["con_key"] = request.GET["con_key"]
-        request.session["con_secret"] = request.GET["con_secret"]
-        request.session["token"] = request.GET["token"]
-        request.session["token_secret"] = request.GET["token_secret"]
-    """
     time_taken = "Execution time: {:.2f}{}".format((time.time() - start), " seconds")
 
     orglat, orglong = origin
@@ -54,9 +40,4 @@ def result(request):
                                            "long": orglong,
                                            "yelp_results": yelp_results,
                                            "exec_time": time_taken})
-
-
-def clear(request):
-    request.session.flush()
-    return render(request, "redirect.html")
 
