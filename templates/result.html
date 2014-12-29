@@ -3,125 +3,35 @@
 <head lang="en">
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="../css/results.css"/>
-    <title></title>
+    <title>Screlp</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng({{ lat }}, {{ long }});
+            var mapOptions = {
+                zoom: 13,
+                center: myLatlng
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var locations = [
+                {% for x, y in coords %}
+                    [{{ x }}, {{ y }}],
+                {% endfor %}
+            ];
+            for (i = 0; i < locations.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][0], locations[i][1]),
+                    map: map
+                });
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 </head>
-<style>
-    img {
-        align-content: center
-    }
-
-    /* Table style from http://csstablegenerator.com/ */
-
-    .result_table {
-    margin:0px;padding:0px;
-    width:100%;	box-shadow: 10px 10px 5px #888888;
-    border:1px solid #000000;
-
-    -moz-border-radius-bottomleft:0px;
-    -webkit-border-bottom-left-radius:0px;
-    border-bottom-left-radius:0px;
-
-    -moz-border-radius-bottomright:0px;
-    -webkit-border-bottom-right-radius:0px;
-    border-bottom-right-radius:0px;
-
-    -moz-border-radius-topright:0px;
-    -webkit-border-top-right-radius:0px;
-    border-top-right-radius:0px;
-
-    -moz-border-radius-topleft:0px;
-    -webkit-border-top-left-radius:0px;
-    border-top-left-radius:0px; }
-
-    .result_table table{
-    width:100%;
-    height:100%;
-    margin:0px;padding:0px; }
-
-    .result_table tr:last-child td:last-child {
-    -moz-border-radius-bottomright:0px;
-    -webkit-border-bottom-right-radius:0px;
-    border-bottom-right-radius:0px;}
-
-    .result_table table tr:first-child td:first-child {
-    -moz-border-radius-topleft:0px;
-    -webkit-border-top-left-radius:0px;
-    border-top-left-radius:0px; }
-
-    .result_table table tr:first-child td:last-child {
-    -moz-border-radius-topright:0px;
-    -webkit-border-top-right-radius:0px;
-    border-top-right-radius:0px; }
-
-    .result_table tr:last-child td:first-child{
-    -moz-border-radius-bottomleft:0px;
-    -webkit-border-bottom-left-radius:0px;
-    border-bottom-left-radius:0px; }
-
-    .result_table tr:hover td{ }
-    .result_table tr:nth-child(odd){ background-color:#e5e5e5; }
-    .result_table tr:nth-child(even){ background-color:#ffffff; }
-
-    .result_table td{
-    vertical-align:middle;
-    border:1px solid #000000;
-    border-width:0px 1px 1px 0px;
-    text-align:center;
-    padding:7px;
-    font-size:10px;
-    font-family:arial;
-    font-weight:normal;
-    color:#000000; }
-
-    .result_table tr:last-child td{
-    border-width:0px 1px 0px 0px; }
-
-    .result_table tr td:last-child{
-    border-width:0px 0px 1px 0px; }
-
-    .result_table tr:last-child td:last-child{
-    border-width:0px 0px 0px 0px; }
-
-    .result_table tr:first-child td{
-    background:-o-linear-gradient(bottom, #4c4c4c 5%, #000000 100%);
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4c4c4c), color-stop(1, #000000) );
-    background:-moz-linear-gradient( center top, #4c4c4c 5%, #000000 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#4c4c4c", endColorstr="#000000");
-    background: -o-linear-gradient(top,#4c4c4c,000000);
-    background-color:#4c4c4c;
-    border:0px solid #000000;
-    text-align:center;
-    border-width:0px 0px 1px 1px;
-    font-size:14px;
-    font-family:arial;
-    font-weight:bold;
-    color:#ffffff;
-    }
-
-    .result_table tr:first-child:hover td{
-    background:-o-linear-gradient(bottom, #4c4c4c 5%, #000000 100%);
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #4c4c4c), color-stop(1, #000000) );
-    background:-moz-linear-gradient( center top, #4c4c4c 5%, #000000 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#4c4c4c", endColorstr="#000000");
-    background: -o-linear-gradient(top,#4c4c4c,000000);
-    background-color:#4c4c4c; }
-
-    .result_table tr:first-child td:first-child{
-    border-width:0px 0px 1px 0px; }
-
-    .result_table tr:first-child td:last-child{
-    border-width:0px 0px 1px 1px; }
-
-    img {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
 
 <body>
 
-    <img src="{{ map_url }}"><br>
+    <div id="map-canvas" style="height: 750px; width: auto; display: block;"></div>
 
     <table class=result_table>
     <tr>
