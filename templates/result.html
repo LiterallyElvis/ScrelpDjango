@@ -1,11 +1,20 @@
+
 <!DOCTYPE html>
 <html>
+{% load staticfiles %}
+<link type="text/css" rel="stylesheet" href="{% static "css/result.css" %}"/>
+<link href='http://fonts.googleapis.com/css?family=Raleway|Pacifico' rel='stylesheet' type='text/css'>
 <head lang="en">
     <meta charset="UTF-8">
-    <link type="text/css" rel="stylesheet" href="../css/results.css"/>
     <title>Screlp</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "js/jquery.tablesorter.min.js" %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
+        $(document).ready(function() {
+            $("table").tablesorter();
+        });
+
         function initialize() {
             var myLatlng = new google.maps.LatLng({{ lat }}, {{ long }});
             var mapOptions = {
@@ -14,9 +23,9 @@
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             var locations = [
-                {% for x, y in coords %}
-                    [{{ x }}, {{ y }}],
-                {% endfor %}
+            {% for x, y in coords %}
+                [{{ x }}, {{ y }}],
+            {% endfor %}
             ];
             for (i = 0; i < locations.length; i++) {
                 var marker = new google.maps.Marker({
@@ -31,39 +40,41 @@
 
 <body>
 
-    <div id="map-canvas" style="height: 750px; width: auto; display: block;"></div>
+<div id="map-canvas" style="height: 750px; width: auto; display: block;"></div>
 
-    <table class=result_table>
-    <tr>
-        <th>Position</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Zip Code</th>
-        <th>Rating</th>
-        <th>Review Count</th>
-        <th>Category</th>
-    </tr>
-
-    {% for item in yelp_results %}
-    <tr>
-        <td>{{ item.result_position }}</td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.phone }}</td>
-        <td>{{ item.address }}</td>
-        <td>{{ item.city }}</td>
-        <td>{{ item.state }}</td>
-        <td>{{ item.zip }}</td>
-        <td>{{ item.rating }}</td>
-        <td>{{ item.review_count }}</td>
-        <td>{{ item.category }}</td>
-    </tr>
-    {% endfor %}
-    </table>
-
+<table id=results-table class=tablesorter>
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zip Code</th>
+            <th>Rating</th>
+            <th>Review Count</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in yelp_results %}
+        <tr>
+            <td>{{ item.result_position }}</td>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.phone }}</td>
+            <td>{{ item.address }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.zip }}</td>
+            <td>{{ item.rating }}</td>
+            <td>{{ item.review_count }}</td>
+            <td>{{ item.category }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>
