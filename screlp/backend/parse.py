@@ -16,7 +16,7 @@ files.py, for instance.
 """
 
 import sys
-import connect
+import screlp.backend.connect as connect
 from collections import namedtuple
 
 
@@ -49,9 +49,9 @@ def parse_results(api_result, items, url):
     entries and then returned.
     """
     for position in range(0, api_result["total"]):
-        Business = namedtuple("business", ["result_position", "id", "name", "phone",
-                                           "address", "city", "state", "zip",
-                                           "rating", "review_count",
+        Business = namedtuple("business", ["result_position", "id", "name", 
+                                           "phone", "address", "city", "state",
+                                           "zip", "rating", "review_count",
                                            "category", "query_performed"])
         item = []
         try:
@@ -59,7 +59,9 @@ def parse_results(api_result, items, url):
             item.append(position + 1)
             item.append(source["id"])
             item.append(source["name"])
-            item.append(source["phone"])
+            item.append("({0}) {1}-{2}".format(source["phone"][:3], \
+                                               source["phone"][3:6], \
+                                               source["phone"][6:]))
             if len(source["location"]["address"]) > 1:
                 """ 
                 Handles case where there is a secondary aspect to the
