@@ -1,0 +1,58 @@
+html{
+    background-color: #627F40;
+    text-align: center;
+    text-shadow:1px 1px 0 rgba(49,63, 32,1);
+}
+
+body{
+    margin: 0;
+}
+
+p{
+    margin: .25em;
+}
+
+#demo-launch{
+    color: #E8FFCC;
+    font-size: .75em;
+    font-family: 'Raleway', sans-serif;
+}
+
+.site-logo{
+    color: #C4FF80;
+    font-size: 10em;
+    font-family: 'Pacifico', cursive;
+    margin-top: 1px;
+    padding-top: .25em;
+    margin-bottom: .25em;
+}
+
+.query-entry{
+    color: #E8FFCC;
+    font-family: 'Raleway', sans-serif;
+}
+
+.label{
+    margin-top: 1em;
+    font-size: 1em;
+}
+
+.parameters{
+    border: 1px solid #848484;
+    border-radius: 1.875em;
+    height: 2.5em;
+    min-width: 20em;
+    outline: 0;
+    text-align: center;
+}
+
+.button{
+    margin-top: 1em;
+    border-radius: 1.5em;
+    font-family: Arial;
+    color: #E8FFCC;
+    font-size: 1em;
+    background: #313F20;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
