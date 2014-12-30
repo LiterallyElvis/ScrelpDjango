@@ -25,7 +25,7 @@
                 <p><input class="parameters" type="password" name="pass" placeholder="•••••••••••••••••"></p>
             {% endif %}
             {% if not forbidden %}
-                <a href="#" id="demo-launch">I'd like a demo</a>
+                <a href="#" id="demo-launch">I'd like a demo</a><br><sup>you have {{ tries }} tries left</sup>
             {% endif %}
         </div>
         <div class="query-entry" id="demo" style="display: none;">

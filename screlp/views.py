@@ -17,8 +17,11 @@ def home(request):
         demo_forbidden = True
     if request.user.is_authenticated():
         logged_in = True
+
+    tries = request.session["tries"]
     return render(request, "home.html", {"logged_in": logged_in,
-                                         "demo_forbidden": demo_forbidden})
+                                         "demo_forbidden": demo_forbidden,
+                                         "tries": tries})
 
 
 def reset_demo_access(request):
