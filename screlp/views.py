@@ -37,6 +37,7 @@ def result(request):
     args["radius"] = request.GET["r"]
     args["density"] = request.GET["d"]
     args["category"] = request.GET["c"]
+    radius = int(args["radius"] = request.GET["r"]) * 1609.34  # convert to meters
 
     if "visited" in request.session:
         creds = [request.session["con_key"],
@@ -45,7 +46,7 @@ def result(request):
                  request.session["token_secret"]]
     else:
         creds = settings.YELP_CREDENTIALS  # demo API credentials.
-	request.session["tries"] += 1
+        request.session["tries"] += 1
 
     start = time.time()
     origin = geog.get_geocode(args)
@@ -59,6 +60,7 @@ def result(request):
                                            "coords": coords,
                                            "lat": orglat,
                                            "long": orglong,
+                                           "radius": radius
                                            "yelp_results": yelp_results,
                                            "exec_time": time_taken})
 

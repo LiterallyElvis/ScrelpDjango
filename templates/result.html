@@ -16,10 +16,11 @@
         });
 
         function initialize() {
-            var myLatlng = new google.maps.LatLng({{ lat }}, {{ long }});
+            var radius = {{ radius }}
+            var origin = new google.maps.LatLng({{ lat }}, {{ long }});
             var mapOptions = {
                 zoom: 13,
-                center: myLatlng
+                center: origin
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             var locations = [
