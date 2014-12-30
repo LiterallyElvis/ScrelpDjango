@@ -1,32 +1,33 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.shortcuts import redirect
 from screlp.backend import parse, geog, connect
 import time
 
 
 def home(request):
     logged_in = False
-    demo_forbidden = False
+    demo_available = True
 
-    if not request.session["tries"]:
-        request.session["tries"] = 1
+    if "tries" not in request.session.keys():
+        request.session["tries"] = 0 
     else:
         request.session["tries"] += 1
 
-    if request.session["tries"] == 5:
-        demo_forbidden = True
+    if request.session["tries"] >= 5:
+        demo_available = False
     if request.user.is_authenticated():
         logged_in = True
 
     tries = request.session["tries"]
     return render(request, "home.html", {"logged_in": logged_in,
-                                         "demo_forbidden": demo_forbidden,
+                                         "demo_available": demo_available,
                                          "tries": tries})
 
 
 def reset_demo_access(request):
-    request.session["tries"] = 0
-    return redirect(home)
+    del request.session["tries"]
+    return redirect('/')
 
 
 def result(request):
