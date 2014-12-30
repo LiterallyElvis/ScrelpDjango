@@ -11,15 +11,13 @@ def home(request):
 
     if "tries" not in request.session.keys():
         request.session["tries"] = 0 
-    else:
-        request.session["tries"] += 1
 
     if request.session["tries"] >= 5:
         demo_available = False
     if request.user.is_authenticated():
         logged_in = True
 
-    tries = request.session["tries"]
+    tries = 5 - int(request.session["tries"])
     return render(request, "home.html", {"logged_in": logged_in,
                                          "demo_available": demo_available,
                                          "tries": tries})
@@ -47,6 +45,7 @@ def result(request):
                  request.session["token_secret"]]
     else:
         creds = settings.YELP_CREDENTIALS  # demo API credentials.
+	request.session["tries"] += 1
 
     start = time.time()
     origin = geog.get_geocode(args)
