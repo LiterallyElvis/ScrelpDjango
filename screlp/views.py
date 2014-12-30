@@ -5,7 +5,25 @@ import time
 
 
 def home(request):
-    return render(request, "home.html")
+    logged_in = False
+    demo_forbidden = False
+
+    if not request.session["tries"]:
+        request.session["tries"] = 1
+    else:
+        request.session["tries"] += 1
+
+    if request.session["tries"] == 5:
+        demo_forbidden = True
+    if request.user.is_authenticated():
+        logged_in = True
+    return render(request, "home.html", {"logged_in": logged_in,
+                                         "demo_forbidden": demo_forbidden})
+
+
+def reset_demo_access(request):
+    request.session["tries"] = 0
+    return redirect(home)
 
 
 def result(request):

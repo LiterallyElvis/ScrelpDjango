@@ -6,7 +6,7 @@
     <head lang="en">
         <meta charset="UTF-8">
         <title>Screlp</title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
                 $("#demo-launch").click(function() {
@@ -20,11 +20,13 @@
     <body>
         <div><h2 class="site-logo">Screlp</h2></div>
         <div class="login">
-            <p><input class="parameters" type="email"    placeholder="example@email.com"></p>
-            <p><input class="parameters" type="password" placeholder="•••••••••••••••••"></p>
-            {# {% if not visited %} #}
+            {% if not logged_in %}
+                <p><input class="parameters" type="email"  name="email"  placeholder="example@email.com"></p>
+                <p><input class="parameters" type="password" name="pass" placeholder="•••••••••••••••••"></p>
+            {% endif %}
+            {% if not forbidden %}
                 <a href="#" id="demo-launch">I'd like a demo</a>
-            {# {% endif %} #}
+            {% endif %}
         </div>
         <div class="query-entry" id="demo" style="display: none;">
             <form action="/search" method="get">
