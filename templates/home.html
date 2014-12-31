@@ -10,24 +10,44 @@
         <script>
             $(document).ready(function(){
                 $("#demo-launch").click(function() {
-                    $(".login").hide();
-                    $("#demo-launch").hide();
-                    $("#demo").fadeIn("slow");
+                    $(".info-entry").hide();
+                    $(".query-entry").fadeIn("slow");
+                });
+
+                $(".register").click(function(){
+                    $("#register").show();
+                });
+
+                $(".login").click(function(){
+                    $("#register").hide();
                 });
             });
         </script>
     </head>
     <body>
         <div><h2 class="site-logo">Screlp</h2></div>
-        <div class="login">
-            {% if not logged_in %}
-                <p><input class="parameters" type="email"  name="email"  placeholder="example@email.com"></p>
-                <p><input class="parameters" type="password" name="pass" placeholder="•••••••••••••••••"></p>
-            {% endif %}
-            {% if demo_available %}
-                <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have {{ tries }} tries remaining</sup>
-            {% endif %}
+        {% if not logged_in %}
+        <div class="info-entry">
+            <div class="choice">
+                <div class="login">
+                    Login
+                </div>
+                <div class="register">
+                    Register
+                </div>
+            </div>
+            <div class="login-entry">
+                <p><input class="parameters" type="email"    name="email" placeholder="example@email.com"></p>
+                <p><input class="parameters" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
+                <div id="register" style="display: none;">
+                    <p><input class="parameters" type="password" name="pass2" placeholder=" Repeat Password "></p>
+                </div>
+                {% if demo_available %}
+                <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have 5 tries remaining</sup>
+                {% endif %}
+            </div>
         </div>
+        {% endif %}
         <div class="query-entry" id="demo" style="display: none;">
             <form action="/search" method="get">
                 <p class="label">Address:</p>
