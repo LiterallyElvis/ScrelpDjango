@@ -2,6 +2,8 @@ html{
     background-color: #627F40;
     text-align: center;
     text-shadow:1px 1px 0 rgba(49,63, 32,1);
+    color: #E8FFCC;
+    font-family: 'Raleway', sans-serif;
 }
 
 body{
@@ -10,12 +12,6 @@ body{
 
 p{
     margin: .25em;
-}
-
-#demo-launch{
-    color: #E8FFCC;
-    font-size: .75em;
-    font-family: 'Raleway', sans-serif;
 }
 
 .site-logo{
@@ -27,9 +23,35 @@ p{
     margin-bottom: .25em;
 }
 
-.query-entry{
-    color: #E8FFCC;
+.choice{
+    width: 10em;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.login .register{
+    height: 3em;
+    min-width: 10em;
+    padding-bottom: 1em;
+}
+
+.login{
+    float: left;
+}
+
+.register{
+    float: right;
+}
+
+#demo-launch{
+    font-size: .75em;
     font-family: 'Raleway', sans-serif;
+}
+
+#demo-launch:visited{
+    color: #313F20;
+    text-shadow: none;
 }
 
 .label{
