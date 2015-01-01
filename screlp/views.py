@@ -34,8 +34,8 @@ def result(request):
 
     args["address"] = request.GET.get("a")
     args["term"] = request.GET.get("t")
-    args["radius"] = request.GET.get("r")
-    args["density"] = request.GET.get("d")
+    args["radius"] = request.GET.get("r", 1)
+    args["density"] = request.GET.get("d", 1)
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
 
