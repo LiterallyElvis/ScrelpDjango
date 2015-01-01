@@ -43,7 +43,7 @@
                     <p><input class="parameters" type="password" name="pass2" placeholder=" Repeat Password "></p>
                 </div>
                 {% if demo_available %}
-                <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have 5 tries remaining</sup>
+                <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have {{ tries }} tries remaining</sup>
                 {% endif %}
             </div>
         </div>
