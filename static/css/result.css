@@ -12,6 +12,11 @@ html{
     margin-bottom: .25em;
 }
 
+#arrow-indicator{
+  text-align: left;
+  color: #C4FF80;
+}
+
 #map-canvas{
     border-radius: 1em;
     border: inset;

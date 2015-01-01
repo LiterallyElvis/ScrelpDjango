@@ -13,6 +13,17 @@
     <script>
         $(document).ready(function() {
             $("table").tablesorter();
+
+            $("#arrow-indicator").click(function(){
+              $("#map-canvas").toggle();
+              var indicator = "";
+              if ($(this).text() == "▶"){
+                indicator = "▼";
+              } else {
+                indicator = "▶";
+              }
+              $(this).text(indicator)
+            });
         });
 
         function initialize() {
@@ -40,8 +51,10 @@
 </head>
 
 <body>
-
-<div id="map-canvas" style="height: 750px; width: auto; display: block;"></div>
+    <div>
+        <p id="arrow-indicator">&#9660;</p>
+        <div id="map-canvas" style="height: 500px; width: auto; display: block;"></div>
+    </div>
 
 <table id=results-table class=tablesorter>
     <thead>
