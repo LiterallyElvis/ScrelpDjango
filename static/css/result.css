@@ -15,12 +15,13 @@ html{
 #arrow-indicator{
   text-align: left;
   color: #C4FF80;
+  margin-bottom: 0;
 }
 
 #map-canvas{
     border-radius: 1em;
     border: inset;
-    margin: 1em 0;
+    margin-bottom: 1em;
 }
 
 table, th, td {
