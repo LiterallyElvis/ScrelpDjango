@@ -10,7 +10,7 @@ def home(request):
     demo_available = True
 
     if "tries" not in request.session.keys():
-        request.session["tries"] = 0 
+        request.session["tries"] = 0
 
     if request.session["tries"] >= 5:
         demo_available = False
@@ -46,7 +46,10 @@ def result(request):
                  request.session["token_secret"]]
     else:
         creds = settings.YELP_CREDENTIALS  # demo API credentials.
-        request.session["tries"] += 1
+        if "tries" not in request.session.keys():
+            request.session["tries"] = 1
+        else:
+            request.session["tries"] += 1
 
     start = time.time()
     origin = geog.get_geocode(args)
@@ -63,4 +66,3 @@ def result(request):
                                            "radius": radius,
                                            "yelp_results": yelp_results,
                                            "exec_time": time_taken})
-
