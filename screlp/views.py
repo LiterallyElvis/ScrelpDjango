@@ -32,12 +32,12 @@ def result(request):
     args = dict()
     creds = list()
 
-    args["address"] = request.GET["a"]
-    args["term"] = request.GET["t"]
-    args["radius"] = request.GET["r"]
-    args["density"] = request.GET["d"]
-    args["category"] = request.GET["c"]
-    radius = int(request.GET["r"]) * 1609.34  # convert to meters
+    args["address"] = request.GET.get("a")
+    args["term"] = request.GET.get("t")
+    args["radius"] = request.GET.get("r")
+    args["density"] = request.GET.get("d")
+    args["category"] = request.GET.get("c")
+    radius = int(args["radius"]) * 1609.34  # convert to meters
 
     if "visited" in request.session:
         creds = [request.session["con_key"],
