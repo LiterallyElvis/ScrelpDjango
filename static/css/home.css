@@ -42,17 +42,14 @@ p{
     padding: .5em;
 }
 
-.login .register{
-    min-width: 10em;
-    padding: .5em;
-}
-
 .login{
     float: left;
+    padding: .5em;
 }
 
 .register{
     float: right;
+    padding: .5em;
 }
 
 #demo-launch{
