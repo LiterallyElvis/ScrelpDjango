@@ -16,6 +16,7 @@ html{
   text-align: left;
   color: #C4FF80;
   margin-bottom: 0;
+  cursor: pointer;
 }
 
 #map-canvas{
