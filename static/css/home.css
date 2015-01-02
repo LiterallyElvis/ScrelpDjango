@@ -34,16 +34,17 @@ p{
     display: inline-block;
 }
 
-.login{
+.login .register{
     min-width: 10em;
-    float: left;
     padding: .5em;
 }
 
+.login{
+    float: left;
+}
+
 .register{
-    min-width: 10em;
     float: right;
-    padding: .5em;
 }
 
 #demo-launch{
