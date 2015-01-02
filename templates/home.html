@@ -16,18 +16,14 @@
 
                 $(".register").click(function(){
                     $("#register").show();
-                    $(".register").css({"border-width": "3px",
-                                        "border-color": "#E8FFCC",
-                                        "border-style": "groove",
-                                        "border-radius": "5px"})
+                    $(".register").addClass("selected-choice");
+                    $(".login").removeClass("selected-choice");
                 });
 
                 $(".login").click(function(){
                     $("#register").hide();
-                    $(".login").css({"border-width": "3px",
-                                     "border-color": "#E8FFCC",
-                                     "border-style": "groove",
-                                     "border-radius": "5px"})
+                    $(".login").addClass("selected-choice");
+                    $(".register").removeClass("selected-choice");
                 });
             });
         </script>

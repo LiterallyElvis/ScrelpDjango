@@ -34,6 +34,14 @@ p{
     display: inline-block;
 }
 
+.selected-choice{
+    border-width: 3px;
+    border-color: #E8FFCC;
+    border-style: groove;
+    border-radius: 5px;
+    padding: .5em;
+}
+
 .login .register{
     min-width: 10em;
     padding: .5em;
