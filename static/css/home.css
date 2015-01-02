@@ -38,16 +38,14 @@ p{
     height: 3em;
     min-width: 10em;
     float: left;
-    padding: 1em;
-    padding-bottom: 1.5em;
+    padding: .5em;
 }
 
 .register{
     height: 3em;
     min-width: 10em;
     float: right;
-    padding: 1em;
-    padding-bottom: 1.5em;
+    padding: .5em;
 }
 
 #demo-launch{
