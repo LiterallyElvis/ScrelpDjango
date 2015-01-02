@@ -35,14 +35,12 @@ p{
 }
 
 .login{
-    height: 3em;
     min-width: 10em;
     float: left;
     padding: .5em;
 }
 
 .register{
-    height: 3em;
     min-width: 10em;
     float: right;
     padding: .5em;
