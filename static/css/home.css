@@ -23,6 +23,10 @@ p{
     margin-bottom: .25em;
 }
 
+#logo-link{
+    text-decoration: none;
+}
+
 .choice{
     width: 10em;
     margin-left: auto;
@@ -33,7 +37,8 @@ p{
 .login .register{
     height: 3em;
     min-width: 10em;
-    padding-bottom: 1em;
+    padding: 1em;
+    padding-bottom: 1.5em;
 }
 
 .login{

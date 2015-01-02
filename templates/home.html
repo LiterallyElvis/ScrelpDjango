@@ -16,16 +16,24 @@
 
                 $(".register").click(function(){
                     $("#register").show();
+                    $(".register").css({"border-width": "3px",
+                                        "border-color": "#E8FFCC",
+                                        "border-style": "groove",
+                                        "border-radius": "5px"})
                 });
 
                 $(".login").click(function(){
                     $("#register").hide();
+                    $(".login").css({"border-width": "3px",
+                                     "border-color": "#E8FFCC",
+                                     "border-style": "groove",
+                                     "border-radius": "5px"})
                 });
             });
         </script>
     </head>
     <body>
-        <div><h2 class="site-logo">Screlp</h2></div>
+        <div><a href="http://exceptnot.com" id="logo-link"><h2 class="site-logo">Screlp</h2></a></div>
         {% if not logged_in %}
         <div class="info-entry">
             <div class="choice">
@@ -37,11 +45,14 @@
                 </div>
             </div>
             <div class="login-entry">
-                <p><input class="parameters" type="email"    name="email" placeholder="example@email.com"></p>
-                <p><input class="parameters" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
-                <div id="register" style="display: none;">
-                    <p><input class="parameters" type="password" name="pass2" placeholder=" Repeat Password "></p>
-                </div>
+                <form action="/register/" method="post">
+                    <p><input class="parameters" type="email"    name="email" placeholder="example@email.com"></p>
+                    <p><input class="parameters" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
+                    <div id="register" style="display: none;">
+                        <p><input class="parameters" type="password" name="pass2" placeholder=" Repeat Password "></p>
+                    </div>
+                    <p><input class="parameters" type="submit"></p>
+                </form>
                 {% if demo_available %}
                 <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have {{ tries }} tries remaining</sup>
                 {% endif %}
