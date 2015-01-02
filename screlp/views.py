@@ -1,3 +1,5 @@
+# TODO: split these views into individual files
+
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
@@ -12,12 +14,12 @@ def home(request):
     if "tries" not in request.session.keys():
         request.session["tries"] = 0
 
-    if request.session["tries"] >= 5:
+    if request.session["tries"] >= settings.TRIES_ALLOWED:
         demo_available = False
     if request.user.is_authenticated():
         logged_in = True
 
-    tries = 5 - int(request.session["tries"])
+    tries = settings.TRIES_ALLOWED - int(request.session["tries"])
     return render(request, "home.html", {"logged_in": logged_in,
                                          "demo_available": demo_available,
                                          "tries": tries})
@@ -31,19 +33,21 @@ def reset_demo_access(request):
 def result(request):
     args = dict()
     creds = list()
+    tracking = list()
 
     args["address"] = request.GET.get("a")
+    # TODO: handle when address is not passed
     args["term"] = request.GET.get("t")
     args["radius"] = request.GET.get("r", 1)
     args["density"] = request.GET.get("d", 1)
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
 
+    # TODO: Allow users to specify which aspects of the results to receive.
+
     if "visited" in request.session:
-        creds = [request.session["con_key"],
-                 request.session["con_secret"],
-                 request.session["token"],
-                 request.session["token_secret"]]
+        creds = [request.session["con_key"], request.session["con_secret"],
+                 request.session["token"], request.session["token_secret"]]
     else:
         creds = settings.YELP_CREDENTIALS  # demo API credentials.
         if "tries" not in request.session.keys():
