@@ -12,10 +12,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
         $(document).ready(function() {
-            $("table").tablesorter();
+            $("#results-table").tablesorter();
 
-            $("#arrow-indicator").click(function(){
-              $("#map-canvas").toggle();
+            $(".item-container").find("#arrow-indicator").click(function(){
               var indicator = "";
               if ($(this).text() == "▶"){
                 indicator = "▼";
@@ -23,6 +22,7 @@
                 indicator = "▶";
               }
               $(this).text(indicator)
+              $(this).parent().find(".toggleable").toggle();
             });
         });
 
@@ -51,44 +51,48 @@
 </head>
 
 <body>
-    <div>
-        <p id="arrow-indicator">&#9660;</p>
-        <div id="map-canvas" style="height: 500px; width: auto; display: block;"></div>
+    <div class="item-container">
+        <div id="arrow-indicator">&#9660;</div>
+        <div id="map-canvas" class="toggleable" style="height: 500px; width: auto; display: block;"></div>
     </div>
 
-<table id=results-table class=tablesorter>
-    <thead>
-        <tr>
-            <th>Position</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Zip Code</th>
-            <th>Rating</th>
-            <th>Review Count</th>
-            <th>Category</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in yelp_results %}
-        <tr>
-            <td>{{ item.result_position }}</td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.phone }}</td>
-            <td>{{ item.address }}</td>
-            <td>{{ item.city }}</td>
-            <td>{{ item.state }}</td>
-            <td>{{ item.zip }}</td>
-            <td>{{ item.rating }}</td>
-            <td>{{ item.review_count }}</td>
-            <td>{{ item.category }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="item-container">
+        <div id="arrow-indicator">&#9660;</div>
+        <div class="toggleable">
+            <table id=results-table class=tablesorter>
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Rating</th>
+                        <th>Review Count</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in yelp_results %}
+                    <tr>
+                        <td>{{ item.result_position }}</td>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.phone }}</td>
+                        <td>{{ item.address }}</td>
+                        <td>{{ item.city }}</td>
+                        <td>{{ item.state }}</td>
+                        <td>{{ item.zip }}</td>
+                        <td>{{ item.rating }}</td>
+                        <td>{{ item.review_count }}</td>
+                        <td>{{ item.category }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 </body>
 </html>
