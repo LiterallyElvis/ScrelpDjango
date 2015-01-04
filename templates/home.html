@@ -25,6 +25,30 @@
                     $(".login").addClass("selected-choice");
                     $(".register").removeClass("selected-choice");
                 });
+
+                function passwordCheck(password){
+                    // taken from: http://www.the-art-of-web.com/javascript/validate-password/
+                    // at least one number, one lowercase and one uppercase letter
+                    // at least eight characters
+                    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+                    return re.test(str);
+                  }
+
+                $("#pass1").change(function(){
+                    if(passwordCheck(this.val())){
+                        $("#login-button").prop("disabled", false);
+                        this.removeClass("invalid-pass");
+                    } else if (this.hasClass("invalid-pass")){}
+                        else { this.addClass("invalid-pass"); }
+                });
+
+                $("#pass2").change(function(){
+                    if(this.val() == $("pass1").val()){
+                        $("#login-button").prop("disabled", false);
+                        this.removeClass("invalid-pass");
+                    } else if (this.hasClass("invalid-pass")){}
+                        else { this.addClass("invalid-pass"); }
+                });
             });
         </script>
     </head>
@@ -33,7 +57,7 @@
         {% if not logged_in %}
         <div class="info-entry">
             <div class="choice">
-                <div class="login">
+                <div class="login selected-choice">
                     Login
                 </div>
                 <div class="register">
@@ -42,12 +66,12 @@
             </div>
             <div class="login-entry">
                 <form action="/register/" method="post">
-                    <p><input class="parameters" type="email"    name="email" placeholder="example@email.com"></p>
-                    <p><input class="parameters" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
+                    <p><input class="parameters" id="username" type="email" name="email" placeholder="example@email.com"></p>
+                    <p><input class="parameters" id="pass1" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
                     <div id="register" style="display: none;">
-                        <p><input class="parameters" type="password" name="pass2" placeholder=" Repeat Password "></p>
+                        <p><input class="parameters" id="pass2" type="password" name="pass2" placeholder=" Repeat Password "></p>
                     </div>
-                    <p><input class="parameters" type="submit"></p>
+                    <p><input id="login-button" class="parameters" type="submit" disabled></p>
                 </form>
                 {% if demo_available %}
                 <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch">you have {{ tries }} tries remaining</sup>

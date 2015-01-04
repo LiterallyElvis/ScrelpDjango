@@ -52,6 +52,12 @@ p{
     padding: .5em;
 }
 
+.invalid-pass{
+    border: 3px solid #CB745C;
+    background-color: #4C281F;
+
+}
+
 #demo-launch{
     font-size: .75em;
     font-family: 'Raleway', sans-serif;
@@ -72,7 +78,6 @@ p{
     border-radius: 1.875em;
     height: 2.5em;
     min-width: 20em;
-    outline: 0;
     text-align: center;
 }
 
