@@ -41,7 +41,7 @@ def scrape_yelp(args, coords, creds):
     return items
 
 
-def parse_results(api_result, items, url):
+def parse_results(api_result, items, url, coord):
     """
     Takes JSON result from Yelp query and uses each individual result to
     create a namedtuple of select attributes. This namedtuple is then added
