@@ -35,7 +35,7 @@ def scrape_yelp(args, coords, creds):
         url = connect.make_url(args, coord)
         try:
             result = connect.make_api_call(url, creds)
-            items = parse_results(result, items, url)
+            items = parse_results(result, items, url, coord)
         except RuntimeError:
             return None
     return items
@@ -49,10 +49,10 @@ def parse_results(api_result, items, url):
     entries and then returned.
     """
     for position in range(0, api_result["total"]):
-        Business = namedtuple("business", ["result_position", "id", "name", 
+        Business = namedtuple("business", ["result_position", "id", "name",
                                            "phone", "address", "city", "state",
                                            "zip", "rating", "review_count",
-                                           "category", "query_performed"])
+                                           "category", "query_performed", "coord"])
         item = []
         try:
             source = api_result["businesses"][position]
@@ -63,7 +63,7 @@ def parse_results(api_result, items, url):
                                                source["phone"][3:6], \
                                                source["phone"][6:]))
             if len(source["location"]["address"]) > 1:
-                """ 
+                """
                 Handles case where there is a secondary aspect to the
                 address, such as a unit or suite number.
                 """
@@ -79,6 +79,7 @@ def parse_results(api_result, items, url):
             item.append(source["categories"][0][0])
             url = url.replace("http://api.yelp.com/v2/search?", "")
             item.append(url)
+            item.append(coord)
             biz = Business._make(item)
             items.append(biz)
         except IndexError:

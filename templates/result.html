@@ -66,7 +66,7 @@
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        <th>City/State</th>
+                        <th>City</th>
                         <th>Zip Code</th>
                         <th>Rating</th>
                         <th>Category</th>
@@ -75,7 +75,7 @@
                 <tbody>
                     {% for item in yelp_results %}
                     <tr>
-                        <td>{{ item.result_position }}</td>
+                        <td title="For coordinate: {{ item.coord }}">{{ item.result_position }}</td>
                         <td title="Yelp ID: {{ item.id }}">{{ item.name }}</td>
                         <td>{{ item.phone }}</td>
                         <td>{{ item.address }}</td>
