@@ -1,4 +1,6 @@
 var categories = [
+	// There are regional limitations to some terms, but we are going to ignore
+	// those for now, becuase they are horribly lame.
     "active",
     "atvrentals",
     "amateursportsteams",
