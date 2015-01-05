@@ -63,15 +63,12 @@
                 <thead>
                     <tr>
                         <th>Position</th>
-                        <th>ID</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
+                        <th>City/State</th>
                         <th>Zip Code</th>
                         <th>Rating</th>
-                        <th>Review Count</th>
                         <th>Category</th>
                     </tr>
                 </thead>
@@ -79,15 +76,12 @@
                     {% for item in yelp_results %}
                     <tr>
                         <td>{{ item.result_position }}</td>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
+                        <td title="Yelp ID: {{ item.id }}">{{ item.name }}</td>
                         <td>{{ item.phone }}</td>
                         <td>{{ item.address }}</td>
-                        <td>{{ item.city }}</td>
-                        <td>{{ item.state }}</td>
+                        <td>{{ item.city }}, {{ item.state }}</td>
                         <td>{{ item.zip }}</td>
-                        <td>{{ item.rating }}</td>
-                        <td>{{ item.review_count }}</td>
+                        <td title="Number of reviews: {{ item.review_count }}">{{ item.rating }}</td>
                         <td>{{ item.category }}</td>
                     </tr>
                     {% endfor %}
