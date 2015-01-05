@@ -85,8 +85,11 @@
                     <p><input class="parameters" type="number" name="r" value="1"></p>
                 <p class="label">Grid Density:</p>
                     <p><input class="parameters" type="number" name="d" value="1" max="5"></p>
+                {% if logged_in %}
+                # TODO: Create auto-sort jquery field for Yelp categories.
                 <p class="label">Category:</p>
                     <p><input class="parameters" type="text" name="c" placeholder="n/a"></p>
+                {% endif %}
                 <input class="button" type="submit" value="Go!">
             </form>
         </div>
