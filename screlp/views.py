@@ -19,7 +19,7 @@ def home(request):
     if request.user.is_authenticated():
         logged_in = True
 
-    tries = settings.TRIES_ALLOWED - int(request.session["tries"])
+    tries = max(0, settings.TRIES_ALLOWED - int(request.session["tries"]))
     return render(request, "home.html", {"logged_in": logged_in,
                                          "demo_available": demo_available,
                                          "tries": tries})
