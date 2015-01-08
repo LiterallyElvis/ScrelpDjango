@@ -6,46 +6,50 @@
     <head lang="en">
         <meta charset="UTF-8">
         <title>Screlp</title>
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
-                $("#demo-launch").click(function() {
-                    $(".info-entry").hide();
-                    $(".query-entry").fadeIn("slow");
-                });
+              function passwordCheck(password){
+                // taken from: http://www.the-art-of-web.com/javascript/validate-password/
+                // at least one number, one lowercase and one uppercase letter
+                // at least eight characters
+                var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+                return re.test(password);
+              };
 
-                $(".register").click(function(){
-                    $("#register").show();
-                    $(".register").addClass("selected-choice");
-                    $(".login").removeClass("selected-choice");
-                });
+              $("#demo-launch").click(function() {
+                $(".info-entry").hide();
+                $(".query-entry").fadeIn("slow");
+              });
 
-                $(".login").click(function(){
-                    $("#register").hide();
-                    $(".login").addClass("selected-choice");
-                    $(".register").removeClass("selected-choice");
-                });
+              $(".register").click(function(){
+                $("#register").show();
+                $(".register").addClass("selected-choice");
+                $(".login").removeClass("selected-choice");
+              });
 
-                var passwordCheck = function(password){
-                    // taken from: http://www.the-art-of-web.com/javascript/validate-password/
-                    // at least one number, one lowercase and one uppercase letter
-                    // at least eight characters
-                    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
-                    return re.test(str);
-                };
+              $(".login").click(function(){
+                $("#register").hide();
+                $(".login").addClass("selected-choice");
+                $(".register").removeClass("selected-choice");
+              });
 
-                $("#pass1").change(function(){
-                    if(passwordCheck(this.val())){
-                        $("#login-button").prop("disabled", false);
-                        this.removeClass("invalid-pass");
-                    } else { this.addClass("invalid-pass"); }
-                });
+              $("#pass1").change(function(){
+                console.log($(this).val())
+                if(passwordCheck($(this).val())){
+                  $("#login-button").prop("disabled", false);
+                  $(this).removeClass("invalid-pass");
+                } else {
+                  $(this).addClass("invalid-pass");
+                  $("#pass2").addClass("invalid-pass");
+                }
+              });
 
-                $("#pass2").change(function(){
-                    if(this.val() == $("pass1").val()){
-                        $("#login-button").prop("disabled", false);
-                        this.removeClass("invalid-pass");
-                    } else { this.addClass("invalid-pass"); }
+              $("#pass2").change(function(){
+                if($(this).val() == $("#pass1").val()){
+                  $("#login-button").prop("disabled", false);
+                  $(this).removeClass("invalid-pass");
+                } else { $(this).addClass("invalid-pass"); }
                 });
             });
         </script>
