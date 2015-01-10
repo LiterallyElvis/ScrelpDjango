@@ -20,9 +20,13 @@ def home(request):
         logged_in = True
 
     tries = max(0, settings.TRIES_ALLOWED - int(request.session["tries"]))
+    term = "tries"
+    if tries == 1:
+        term = "try"
+    phrase = "You have {0} {1} available.".format(tries, term)
     return render(request, "home.html", {"logged_in": logged_in,
                                          "demo_available": demo_available,
-                                         "tries": tries})
+                                         "phrase": phrase})
 
 
 def reset_demo_access(request):
