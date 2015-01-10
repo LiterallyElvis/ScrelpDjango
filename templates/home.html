@@ -75,7 +75,10 @@
                     </div>
                     <p><input id="login-button" class="parameters" type="submit" disabled></p>
                 </form>
-                <a href="#" id="demo-launch">I'd like a demo</a><br><sup id="demo-launch"> {{ phrase }}</sup>
+                {% if demo_available %}
+                <a href="#" id="demo-launch">I'd like a demo</a><br>
+                {% endif %}
+                <sup id="demo-phrase">{{ phrase }}</sup>
             </div>
         </div>
         {% endif %}

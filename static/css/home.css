@@ -60,11 +60,11 @@ p{
 
 #demo-launch{
     font-size: .75em;
+    color: #313F20;
     font-family: 'Raleway', sans-serif;
 }
 
 #demo-launch:visited{
-    color: #313F20;
     text-shadow: none;
 }
 
