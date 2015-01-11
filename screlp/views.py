@@ -65,7 +65,7 @@ def result(request):
     origin = geog.get_geocode(args)
     coords = geog.generate_coords(origin, int(args["density"]), int(args["radius"]))
     yelp_results = parse.scrape_yelp(args, coords, creds)
-    time_taken = "Execution time: {:.2f}{}".format((time.time() - start), " seconds")
+    time_taken = "Execution time: {:.2f} {}".format((time.time() - start), "seconds")
 
     orglat, orglong = origin
 
