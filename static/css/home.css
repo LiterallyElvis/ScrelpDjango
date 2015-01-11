@@ -86,3 +86,8 @@ p{
     min-width: 20em;
     text-align: center;
 }
+
+#button{
+    margin-top: 1.5 em;
+    min-width: 1em;
+}
