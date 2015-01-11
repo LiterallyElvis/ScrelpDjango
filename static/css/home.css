@@ -1,7 +1,7 @@
 html{
     background-color: #627F40;
     text-align: center;
-    text-shadow:1px 1px 0 rgba(49,63, 32,1);
+    text-shadow: 1px 1px 0 rgba(49,63, 32,1);
     color: #E8FFCC;
     font-family: 'Raleway', sans-serif;
 }
@@ -27,8 +27,15 @@ p{
     text-decoration: none;
 }
 
+
+.container{
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+}
+
 .choice{
-    width: 10em;
+    width: 9em;
     margin-left: auto;
     margin-right: auto;
     display: inline-block;
@@ -37,8 +44,7 @@ p{
 .selected-choice{
     border-width: 3px;
     border-color: #E8FFCC;
-    border-style: groove;
-    border-radius: 5px;
+    border-bottom: ridge;
     padding: .5em;
 }
 
@@ -79,15 +85,4 @@ p{
     height: 2.5em;
     min-width: 20em;
     text-align: center;
-}
-
-.button{
-    margin-top: 1em;
-    border-radius: 1.5em;
-    font-family: Arial;
-    color: #E8FFCC;
-    font-size: 1em;
-    background: #313F20;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
 }
