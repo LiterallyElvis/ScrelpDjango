@@ -31,7 +31,7 @@ def home(request):
 
 def reset_demo_access(request):
     del request.session["tries"]
-    return redirect('/')
+    return redirect("/")
 
 
 def result(request):
@@ -43,7 +43,7 @@ def result(request):
     # TODO: handle when address is not passed
     args["term"] = request.GET.get("t")
     args["radius"] = request.GET.get("r", 1)
-    args["density"] = request.GET.get("d", 1)
+    args["density"] = max(5, request.GET.get("d", 1))
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
 
@@ -57,6 +57,8 @@ def result(request):
         if "tries" not in request.session.keys():
             request.session["tries"] = 1
         else:
+            if request.session["tries"] == settings.TRIES_ALLOWED:
+                return redirect("/")
             request.session["tries"] += 1
 
     start = time.time()
