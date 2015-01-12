@@ -26,6 +26,11 @@
             });
         });
 
+        var coordinates = [
+            {% for item in yelp_results %}
+                {{ item.coord }}, {% endfor %}
+        ]
+
         function initialize() {
             var radius = {{ radius }};
             var origin = new google.maps.LatLng({{ lat }}, {{ long }});
@@ -59,7 +64,7 @@
     <div class="item-container">
         <div id="arrow-indicator">&#9660;</div>
         <div class="toggleable">
-            <table id=results-table class=tablesorter>
+            <table id="results-table" class="tablesorter">
                 <thead>
                     <tr>
                         <th>Position</th>
