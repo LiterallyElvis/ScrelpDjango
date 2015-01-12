@@ -11,6 +11,8 @@ def home(request):
     logged_in = False
     demo_available = True
 
+    # TODO: Allow users to specify which aspects of the results to receive.
+
     if "tries" not in request.session.keys():
         request.session["tries"] = 0
 
@@ -35,6 +37,18 @@ def reset_demo_access(request):
 
 
 def result(request):
+    if "visited" in request.session:
+        creds = [request.session["con_key"], request.session["con_secret"],
+        request.session["token"], request.session["token_secret"]]
+    else:
+        creds = settings.YELP_CREDENTIALS  # demo API credentials.
+        if "tries" not in request.session.keys():
+            request.session["tries"] = 1
+        else:
+            if request.session["tries"] >= settings.TRIES_ALLOWED:
+                return redirect("/")
+            request.session["tries"] += 1
+
     args = dict()
     creds = list()
     tracking = list()
@@ -47,19 +61,6 @@ def result(request):
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
 
-    # TODO: Allow users to specify which aspects of the results to receive.
-
-    if "visited" in request.session:
-        creds = [request.session["con_key"], request.session["con_secret"],
-                 request.session["token"], request.session["token_secret"]]
-    else:
-        creds = settings.YELP_CREDENTIALS  # demo API credentials.
-        if "tries" not in request.session.keys():
-            request.session["tries"] = 1
-        else:
-            if request.session["tries"] == settings.TRIES_ALLOWED:
-                return redirect("/")
-            request.session["tries"] += 1
 
     start = time.time()
     origin = geog.get_geocode(args)
