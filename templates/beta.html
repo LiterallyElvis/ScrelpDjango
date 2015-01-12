@@ -16,8 +16,8 @@
 
                 $(".register").click(function(){
                     if(!$(this).hasClass("selected-choice")){
-                        $("#register").fadeToggle();
-                        $("#login").fadeToggle();
+                        $("#register").show();
+                        $("#login").hide();
                         $(".register").toggleClass("selected-choice");
                         $(".login").toggleClass("selected-choice");
                     };
@@ -25,8 +25,8 @@
 
                 $(".login").click(function(){
                     if(!$(this).hasClass("selected-choice")){
-                        $("#register").fadeToggle();
-                        $("#login").fadeToggle();
+                        $("#register").hide();
+                        $("#login").show();
                         $(".login").toggleClass("selected-choice");
                         $(".register").toggleClass("selected-choice");
                     };
@@ -47,12 +47,15 @@
                         Register
                     </div>
                 </div>
+            <form action="/register" method="post">
                 <div class="login-entry" id="login">
-                    {{ login }}
+                    {{ login.as_p }}
                 </div>
                 <div class="login-entry" id="register" style="display: none;">
-                    {{ register }}
+                    {{ register.as_p }}
                 </div>
+                <input id="login-button" class="parameters" type="submit">
+            </form>
                 <div class="login-entry">
                     {% if demo_available %}
                     <a href="#" id="demo-launch">I'd like a demo</a><br>
