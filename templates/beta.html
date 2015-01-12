@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    {% load staticfiles %}
+    <link type="text/css" rel="stylesheet" href="{% static "css/home.css" %}"/>
+    <link href='http://fonts.googleapis.com/css?family=Raleway|Pacifico' rel='stylesheet' type='text/css'>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Screlp</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#demo-launch").click(function() {
+                    $(".info-entry").hide();
+                    $(".query-entry").fadeIn("slow");
+                });
+
+                $(".register").click(function(){
+                    if(!$(this).hasClass("selected-choice")){
+                        $("#register").fadeToggle();
+                        $("#login").fadeToggle();
+                        $(".register").toggleClass("selected-choice");
+                        $(".login").toggleClass("selected-choice");
+                    };
+                });
+
+                $(".login").click(function(){
+                    if(!$(this).hasClass("selected-choice")){
+                        $("#register").fadeToggle();
+                        $("#login").fadeToggle();
+                        $(".login").toggleClass("selected-choice");
+                        $(".register").toggleClass("selected-choice");
+                    };
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div><a href="http://exceptnot.com" id="logo-link"><h2 class="site-logo">Screlp</h2></a></div>
+        {% if not logged_in %}
+        <div class="container">
+            <div class="info-entry">
+                <div class="choice">
+                    <div class="login selected-choice">
+                        Login
+                    </div>
+                    <div class="register">
+                        Register
+                    </div>
+                </div>
+                <div class="login-entry" id="login">
+                    {{ login }}
+                </div>
+                <div class="login-entry" id="register" style="display: none;">
+                    {{ register }}
+                </div>
+                <div class="login-entry">
+                    {% if demo_available %}
+                    <a href="#" id="demo-launch">I'd like a demo</a><br>
+                    {% endif %}
+                    <sup id="demo-phrase">{{ phrase }}</sup>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="query-entry" id="demo" style="display: none;">
+            <form action="/search" method="get">
+                <p class="label">Address:</p>
+                    <p><input class="parameters" type="text" name="a" value="603 Red River St. Austin, TX 78701"></p>
+                <p class="label">Search Term:</p>
+                    <p><input class="parameters" type="text" name="t" value="pizza"></p>
+                <p class="label">Radius (in miles):</p>
+                    <p><input class="parameters" type="number" name="r" value="1"></p>
+                <p class="label">Grid Density:</p>
+                    <p><input class="parameters" type="number" name="d" value="1" max="5"></p>
+                {% if logged_in %}
+                # TODO: Create auto-sort jquery field for Yelp categories.
+                <p class="label">Category:</p>
+                    <p><input class="parameters" type="text" name="c" placeholder="n/a"></p>
+                {% endif %}
+                <input class="parameters" type="submit" id="button" value="Go!">
+            </form>
+        </div>
+    </body>
+</html>

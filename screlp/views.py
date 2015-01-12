@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
+from django import forms
 from screlp.backend import parse, geog, connect
 import time
 
@@ -34,6 +35,19 @@ def home(request):
 def reset_demo_access(request):
     request.session["tries"] = 0
     return redirect("/")
+
+
+def beta(request):
+
+    login = LoginForm()
+    register = RegistrationForm()
+
+    phrase = "You have 1 try available."
+    return render(request, "beta.html", {"logged_in": False,
+                                         "demo_available": True,
+                                         "login": login,
+                                         "register": register,
+                                         "phrase": phrase})
 
 
 def result(request):
