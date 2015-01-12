@@ -32,7 +32,7 @@ def home(request):
 
 
 def reset_demo_access(request):
-    del request.session["tries"]
+    request.session["tries"] = settings.TRIES_ALLOWED
     return redirect("/")
 
 
