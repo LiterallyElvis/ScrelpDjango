@@ -47,15 +47,19 @@
                         Register
                     </div>
                 </div>
-            <form action="/register" method="post">
+
                 <div class="login-entry" id="login">
-                    {{ login.as_p }}
+                    <form action="/login" method="post">
+                        {{ login.as_p }}
+                        <input id="login-button" class="parameters" type="submit">
+                    </form>
                 </div>
                 <div class="login-entry" id="register" style="display: none;">
-                    {{ register.as_p }}
+                    <form action="/register" method="post">
+                        {{ register.as_p }}
+                        <input id="login-button" class="parameters" type="submit">
+                    </form>
                 </div>
-                <input id="login-button" class="parameters" type="submit">
-            </form>
                 <div class="login-entry">
                     {% if demo_available %}
                     <a href="#" id="demo-launch">I'd like a demo</a><br>

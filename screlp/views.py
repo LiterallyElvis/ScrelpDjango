@@ -4,13 +4,19 @@ from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import redirect
 from django import forms
+from django.contrib import auth
+from django.contrib.auth.models import User
 from screlp.backend import parse, geog, connect
 import time
 
 
 def home(request):
-    logged_in = False
+    logged_in = True
+    if not request.user.is_authenticated():
+        logged_in = False
     demo_available = True
+    login_error = request.GET.get("login_error")
+    register_error = request.GET.get("register_error")
 
     # TODO: Allow users to specify which aspects of the results to receive.
 
@@ -28,8 +34,33 @@ def home(request):
         term = "try"
     phrase = "You have {0} {1} available.".format(tries, term)
     return render(request, "home.html", {"logged_in": logged_in,
+                                         "login_error": login_error
+                                         "register_error": register_error
                                          "demo_available": demo_available,
                                          "phrase": phrase})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/")
+    else:
+        request.session["register_error"] = True
+        return redirect("/")
+
+
+def login(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        # Correct password, and the user is marked "active"
+        auth.login(request, user)
+    else:
+        request.session["login_error"] = True
+    return redirect("/")
 
 
 def reset_demo_access(request):
@@ -38,7 +69,6 @@ def reset_demo_access(request):
 
 
 def beta(request):
-
     login = LoginForm()
     register = RegistrationForm()
 
