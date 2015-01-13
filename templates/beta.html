@@ -48,14 +48,16 @@
                     </div>
                 </div>
 
-                <div class="login-entry" id="login">
-                    <form action="/login" method="post">
+                <div class="login-entry" id="login" style="display: none;">
+                    <form action="/login/" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token}}">
                         {{ login.as_p }}
                         <input id="login-button" class="parameters" type="submit">
                     </form>
                 </div>
-                <div class="login-entry" id="register" style="display: none;">
-                    <form action="/register" method="post">
+                <div class="login-entry" id="register">
+                    <form action="/register/" method="post">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token}}">
                         {{ register.as_p }}
                         <input id="login-button" class="parameters" type="submit">
                     </form>
