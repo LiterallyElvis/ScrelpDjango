@@ -87,8 +87,11 @@
                 </div>
             </div>
         </div>
-        {% endif %}
         <div class="query-entry" id="demo" style="display: none;">
+        {% endif %}
+        {% if logged_in %}
+        <div class="query-entry" id="demo">
+        {% endif %}
             <form action="/search" method="get">
                 <p class="label">Address:</p>
                     <p><input class="parameters" type="text" name="a" value="603 Red River St. Austin, TX 78701"></p>

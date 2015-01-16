@@ -81,6 +81,9 @@ def beta(request):
 
 
 def result(request):
+    args = dict()
+    creds = list()
+    tracking = list()
     if "visited" in request.session:
         creds = [request.session["con_key"], request.session["con_secret"],
         request.session["token"], request.session["token_secret"]]
@@ -93,10 +96,7 @@ def result(request):
                 return redirect("/")
             request.session["tries"] += 1
 
-    args = dict()
-    creds = list()
-    tracking = list()
-
+    creds = settings.YELP_CREDENTIALS  # demo API credentials.
     args["address"] = request.GET.get("a")
     # TODO: handle when address is not passed
     args["term"] = request.GET.get("t")
@@ -104,7 +104,6 @@ def result(request):
     args["density"] = max(5, request.GET.get("d", 1))
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
-
 
     start = time.time()
     origin = geog.get_geocode(args)
