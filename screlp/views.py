@@ -1,11 +1,14 @@
 # TODO: split these views into individual files
 
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from django.conf import settings
 from django.shortcuts import redirect
-from django import forms
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.context_processors import csrf
+from screlp import forms
 from screlp.backend import parse, geog, connect
 import time
 
@@ -34,8 +37,8 @@ def home(request):
         term = "try"
     phrase = "You have {0} {1} available.".format(tries, term)
     return render(request, "home.html", {"logged_in": logged_in,
-                                         "login_error": login_error
-                                         "register_error": register_error
+                                         "login_error": login_error,
+                                         "register_error": register_error,
                                          "demo_available": demo_available,
                                          "phrase": phrase})
 
@@ -44,16 +47,16 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
-            return HttpResponseRedirect("/")
+            form.save()
+            return redirect("/")
     else:
         request.session["register_error"] = True
-        return redirect("/")
+        return redirect("/") 
 
 
 def login(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
+    username = request.POST.get("user_email", "")
+    password = request.POST.get("password", "")
     user = auth.authenticate(username=username, password=password)
     if user is not None and user.is_active:
         # Correct password, and the user is marked "active"
@@ -69,15 +72,18 @@ def reset_demo_access(request):
 
 
 def beta(request):
-    login = LoginForm()
-    register = RegistrationForm()
+    c = {}
+    c.update(csrf(request))
+    login = forms.LoginForm()
+    register = UserCreationForm()
 
     phrase = "You have 1 try available."
-    return render(request, "beta.html", {"logged_in": False,
+    return render_to_response("beta.html", RequestContext(request, {"logged_in": False,
                                          "demo_available": True,
                                          "login": login,
+                                         "csrf": c,
                                          "register": register,
-                                         "phrase": phrase})
+                                         "phrase": phrase}))
 
 
 def result(request):
