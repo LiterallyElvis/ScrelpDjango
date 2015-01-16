@@ -79,7 +79,7 @@ p{
     font-size: 1em;
 }
 
-.parameters{
+input {
     border: 1px solid #848484;
     border-radius: 1.875em;
     height: 2.5em;
