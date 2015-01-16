@@ -73,12 +73,12 @@
                 </div>
                 <div class="login-entry">
                     <form action="/register/" method="post">
-                        <p><input class="parameters" id="username" type="email" name="email" placeholder="example@email.com"></p>
-                        <p><input class="parameters" id="pass1" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
+                        <p><input id="username" type="email" name="email" placeholder="example@email.com"></p>
+                        <p><input id="pass1" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
                         <div id="register" style="display: none;">
-                            <p><input class="parameters" id="pass2" type="password" name="pass2" placeholder=" Repeat Password "></p>
+                            <p><input id="pass2" type="password" name="pass2" placeholder=" Repeat Password "></p>
                         </div>
-                        <p><input id="login-button" class="parameters" type="submit" disabled></p>
+                        <p><input id="login-button" type="submit" disabled></p>
                     </form>
                     {% if demo_available %}
                     <a href="#" id="demo-launch">I'd like a demo</a><br>
@@ -94,19 +94,19 @@
         {% endif %}
             <form action="/search" method="get">
                 <p class="label">Address:</p>
-                    <p><input class="parameters" type="text" name="a" value="603 Red River St. Austin, TX 78701"></p>
+                    <p><input type="text" name="a" value="603 Red River St. Austin, TX 78701"></p>
                 <p class="label">Search Term:</p>
-                    <p><input class="parameters" type="text" name="t" value="pizza"></p>
+                    <p><input type="text" name="t" value="pizza"></p>
                 <p class="label">Radius (in miles):</p>
-                    <p><input class="parameters" type="number" name="r" value="1"></p>
+                    <p><input type="number" name="r" value="1"></p>
                 <p class="label">Grid Density:</p>
-                    <p><input class="parameters" type="number" name="d" value="1" max="5"></p>
+                    <p><input type="number" name="d" value="1" max="5"></p>
                 {% if logged_in %}
                 # TODO: Create auto-sort jquery field for Yelp categories.
                 <p class="label">Category:</p>
-                    <p><input class="parameters" type="text" name="c" placeholder="n/a"></p>
+                    <p><input type="text" name="c" placeholder="n/a"></p>
                 {% endif %}
-                <input class="parameters" type="submit" id="button" value="Go!">
+                <input type="submit" id="button" value="Go!">
             </form>
         </div>
     </body>
