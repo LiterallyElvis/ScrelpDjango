@@ -14,9 +14,7 @@ import time
 
 
 def home(request):
-    logged_in = True
-    if not request.user.is_authenticated():
-        logged_in = False
+    logged_in = False
     demo_available = True
     login_error = request.GET.get("login_error")
     register_error = request.GET.get("register_error")
