@@ -3,6 +3,7 @@
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
@@ -46,10 +47,12 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/")
+            return HttpResponse("It worked!")
+        else:
+            return HttpResponse("It didn't work!")
     else:
         request.session["register_error"] = True
-        return redirect("/") 
+        return HttpResponse("It didn't work!") 
 
 
 def login(request):
@@ -73,7 +76,7 @@ def beta(request):
     c = {}
     c.update(csrf(request))
     login = forms.LoginForm()
-    register = UserCreationForm()
+    register = forms.RegistrationForm()
 
     phrase = "You have 1 try available."
     return render_to_response("beta.html", RequestContext(request, {"logged_in": False,
