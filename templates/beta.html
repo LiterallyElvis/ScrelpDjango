@@ -58,7 +58,10 @@
                 <div class="login-entry" id="register">
                     <form action="/register/" method="post">
                         <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token}}">
-                        {{ register.as_p }}
+                        {% for field in register %}
+                           <p class="parameters">{{field.label_tag}} {{ field }} </p>
+                        {% endfor %}
+
                         <input id="login-button" class="parameters" type="submit">
                     </form>
                 </div>

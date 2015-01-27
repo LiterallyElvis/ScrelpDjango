@@ -6,7 +6,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.context_processors import csrf
 from screlp import forms
@@ -44,27 +44,40 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
+        #form = forms.RegistrationForm(request.POST)
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponse("It worked!")
         else:
-            return HttpResponse("It didn't work!")
+            return HttpResponse("It didn't work! {0}".format(form.errors))
     else:
         request.session["register_error"] = True
         return HttpResponse("It didn't work!") 
 
 
 def login(request):
-    username = request.POST.get("user_email", "")
-    password = request.POST.get("password", "")
+    message = "unset"
+    username = request.POST['username']
+    password = request.POST['password']
     user = auth.authenticate(username=username, password=password)
-    if user is not None and user.is_active:
-        # Correct password, and the user is marked "active"
-        auth.login(request, user)
+    if user is not None:
+        if user.is_active:
+            auth.login(request, user)
+            message = "Login worked"
+            # Redirect to a success page.
+        else:
+            # Return a 'disabled account' error message
+            message = "user.is_active failed"
     else:
-        request.session["login_error"] = True
-    return redirect("/")
+        # Return an 'invalid login' error message.
+        message = "user returned None"
+    return HttpResponse(message)
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/")    
 
 
 def reset_demo_access(request):
@@ -74,17 +87,21 @@ def reset_demo_access(request):
 
 def beta(request):
     c = {}
+    logged_in = False
     c.update(csrf(request))
-    login = forms.LoginForm()
-    register = forms.RegistrationForm()
+    login = AuthenticationForm()
+    register = UserCreationForm()
+    #register = forms.RegistrationForm()
+    if request.user.is_authenticated():
+        logged_in = True
 
     phrase = "You have 1 try available."
-    return render_to_response("beta.html", RequestContext(request, {"logged_in": False,
+    return render(request, "beta.html", {"logged_in": logged_in,
                                          "demo_available": True,
                                          "login": login,
                                          "csrf": c,
                                          "register": register,
-                                         "phrase": phrase}))
+                                         "phrase": phrase})
 
 
 def result(request):
