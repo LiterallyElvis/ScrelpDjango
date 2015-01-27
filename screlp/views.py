@@ -70,8 +70,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            new_user = authenticate(username=request.POST['username'], password=request.POST['password'])
-            login(request, new_user)
+            new_user = auth.authenticate(username=request.POST['username'], password=request.POST['password1'])
+            auth.login(request, new_user)
             return redirect("/")
         else:
             return HttpResponse("It didn't work! {0}".format(form.errors))
