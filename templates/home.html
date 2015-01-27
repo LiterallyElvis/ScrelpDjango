@@ -38,26 +38,30 @@
         <div class="container">
             <div class="info-entry">
                 <div class="choice">
-                    <div class="login selected-choice">
+                    <div class="login">
                         Login
                     </div>
-                    <div class="register">
+                    <div class="register selected-choice">
                         Register
                     </div>
                 </div>
-                <div class="login-entry">
-                    <form action="/register/" method="post">
-                        <p><input id="username" type="email" name="email" placeholder="example@email.com"></p>
-                        <p><input id="pass1" type="password" name="pass1" placeholder="•••••••••••••••••"></p>
-                        <div id="register" style="display: none;">
-                            <p><input id="pass2" type="password" name="pass2" placeholder=" Repeat Password "></p>
-                        </div>
-                        <p><input id="login-button" type="submit" disabled></p>
-                    </form>
-                    {% if demo_available %}
-                    <a href="#" id="demo-launch">I'd like a demo</a><br>
-                    {% endif %}
-                    <sup id="demo-phrase">{{ phrase }}</sup>
+                <div class="login-entry" id="login" style="display: none;">
+                  <form action="/login/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% for field in login %}
+                    <p class="parameters" {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}>{{ field }}</p>
+                    {% endfor %}
+                    <input id="login-button" class="parameters" type="submit">
+                  </form>
+                </div>
+                <div class="login-entry" id="register">
+                  <form action="/register/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    {% for field in register %}
+                    <p class="parameters" {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}{% if forloop.counter == 3 %}placeholder="verify password"{% endif %}>{{ field }}</p>
+                    {% endfor %}
+                    <input id="login-button" class="parameters" type="submit">
+                  </form>
                 </div>
             </div>
         </div>

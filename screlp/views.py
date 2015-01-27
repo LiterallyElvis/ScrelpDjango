@@ -1,15 +1,12 @@
 # TODO: split these views into individual files
 
-from django.shortcuts import render, render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django.core.context_processors import csrf
-from screlp import forms
 from screlp.backend import parse, geog, connect
 import time
 
@@ -19,6 +16,11 @@ def home(request):
     demo_available = True
     login_error = request.GET.get("login_error")
     register_error = request.GET.get("register_error")
+
+    c = {}
+    c.update(csrf(request))
+    login = AuthenticationForm()
+    register = UserCreationForm()
 
     # TODO: Allow users to specify which aspects of the results to receive.
 
@@ -30,30 +32,19 @@ def home(request):
     if request.user.is_authenticated():
         logged_in = True
 
-    tries = max(0, settings.TRIES_ALLOWED - int(request.session["tries"]))
-    term = "tries"
-    if tries == 1:
-        term = "try"
-    phrase = "You have {0} {1} available.".format(tries, term)
+    number_of = max(0, settings.TRIES_ALLOWED - int(request.session["tries"]))
+    tries = "tries"
+    if number_of == 1:
+        tries = "try"
+    phrase = "You have {0} {1} available.".format(number_of, tries)
     return render(request, "home.html", {"logged_in": logged_in,
+                                         "csrf": c,
+                                         "login": login,
+                                         "register": register,
                                          "login_error": login_error,
                                          "register_error": register_error,
                                          "demo_available": demo_available,
                                          "phrase": phrase})
-
-
-def register(request):
-    if request.method == 'POST':
-        #form = forms.RegistrationForm(request.POST)
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("It worked!")
-        else:
-            return HttpResponse("It didn't work! {0}".format(form.errors))
-    else:
-        request.session["register_error"] = True
-        return HttpResponse("It didn't work!") 
 
 
 def login(request):
@@ -64,20 +55,32 @@ def login(request):
     if user is not None:
         if user.is_active:
             auth.login(request, user)
-            message = "Login worked"
-            # Redirect to a success page.
+            return redirect("/")
         else:
             # Return a 'disabled account' error message
-            message = "user.is_active failed"
+            return HttpResponse("user.is_active failed")
     else:
         # Return an 'invalid login' error message.
-        message = "user returned None"
-    return HttpResponse(message)
+        return HttpResponse("user returned None")
+
+
+def register(request):
+    if request.method == 'POST':
+        #form = forms.RegistrationForm(request.POST)
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("/")
+        else:
+            return HttpResponse("It didn't work! {0}".format(form.errors))
+    else:
+        request.session["register_error"] = True
+        return HttpResponse("It didn't work!")
 
 
 def logout(request):
     auth.logout(request)
-    return redirect("/")    
+    return redirect("/")
 
 
 def reset_demo_access(request):
@@ -87,20 +90,16 @@ def reset_demo_access(request):
 
 def beta(request):
     c = {}
-    logged_in = False
     c.update(csrf(request))
     login = AuthenticationForm()
     register = UserCreationForm()
-    #register = forms.RegistrationForm()
-    if request.user.is_authenticated():
-        logged_in = True
 
     phrase = "You have 1 try available."
-    return render(request, "beta.html", {"logged_in": logged_in,
-                                         "demo_available": True,
-                                         "login": login,
+    return render(request, "beta.html", {"logged_in": False,
                                          "csrf": c,
+                                         "login": login,
                                          "register": register,
+                                         "demo_available": True,
                                          "phrase": phrase})
 
 
