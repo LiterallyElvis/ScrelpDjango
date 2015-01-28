@@ -47,6 +47,21 @@ def home(request):
                                          "phrase": phrase})
 
 
+def beta(request):
+    c = {}
+    c.update(csrf(request))
+    login = AuthenticationForm()
+    register = UserCreationForm()
+
+    phrase = "You have 1 try available."
+    return render(request, "beta.html", {"logged_in": False,
+                                         "csrf": c,
+                                         "login": login,
+                                         "register": register,
+                                         "demo_available": True,
+                                         "phrase": phrase})
+
+
 def login(request):
     message = "unset"
     username = request.POST['username']
@@ -62,6 +77,11 @@ def login(request):
     else:
         # Return an 'invalid login' error message.
         return HttpResponse("user returned None")
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/")
 
 
 def register(request):
@@ -80,29 +100,9 @@ def register(request):
         return HttpResponse("It didn't work!")
 
 
-def logout(request):
-    auth.logout(request)
-    return redirect("/")
-
-
 def reset_demo_access(request):
     request.session["tries"] = 0
     return redirect("/")
-
-
-def beta(request):
-    c = {}
-    c.update(csrf(request))
-    login = AuthenticationForm()
-    register = UserCreationForm()
-
-    phrase = "You have 1 try available."
-    return render(request, "beta.html", {"logged_in": False,
-                                         "csrf": c,
-                                         "login": login,
-                                         "register": register,
-                                         "demo_available": True,
-                                         "phrase": phrase})
 
 
 def result(request):

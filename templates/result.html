@@ -26,10 +26,7 @@
             });
         });
 
-        var coordinates = [
-            {% for item in yelp_results %}
-                {{ item.coord }}, {% endfor %}
-        ]
+        var coordinates = [{% for item in yelp_results %} {{ item.coord }}, {% endfor %}]
 
         function initialize() {
             var radius = {{ radius }};
