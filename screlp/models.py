@@ -7,6 +7,7 @@ class Categories(models.Model):
 
 
 class YelpCredentials(models.Model):
+    user_id = models.IntegerField()
     consumer_key = models.CharField(max_length=200)
     consumer_secret = models.CharField(max_length=200)
     token = models.CharField(max_length=200)
@@ -14,4 +15,5 @@ class YelpCredentials(models.Model):
 
 
 class GoogleMapsCredentials(models.Model):
+    user_id = models.IntegerField()
     api_key = models.CharField(max_length=200)
