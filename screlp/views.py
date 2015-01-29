@@ -8,6 +8,7 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.context_processors import csrf
 from screlp.backend import parse, geog, connect
+from screlp import models
 import time
 
 
@@ -62,6 +63,12 @@ def beta(request):
                                          "phrase": phrase})
 
 
+def autocomplete(request):
+    query = request.GET.get("q")
+    query_result = Categories.object.filter(yelp_name__startswith=query)
+    return HttpResponse(query_result)
+
+
 def login(request):
     message = "unset"
     username = request.POST['username']
@@ -72,10 +79,10 @@ def login(request):
             auth.login(request, user)
             return redirect("/")
         else:
-            # Return a 'disabled account' error message
+            # TODO: Return a 'disabled account' error message
             return HttpResponse("user.is_active failed")
     else:
-        # Return an 'invalid login' error message.
+        # TODO: Return an 'invalid login' error message.
         return HttpResponse("user returned None")
 
 
