@@ -51,18 +51,18 @@
                   <form action="/login/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     {% for field in login %}
-                    <p class="parameters" {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}>{{ field }}</p>
+                    <p {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}>{{ field }}</p>
                     {% endfor %}
-                    <input id="login-button" class="parameters" type="submit">
+                    <input id="login-button" type="submit">
                   </form>
                 </div>
                 <div class="login-entry" id="register">
                   <form action="/register/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     {% for field in register %}
-                    <p class="parameters" {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}{% if forloop.counter == 3 %}placeholder="verify password"{% endif %}>{{ field }}</p>
+                    <p {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}{% if forloop.counter == 3 %}placeholder="verify password"{% endif %}>{{ field }}</p>
                     {% endfor %}
-                    <input id="login-button" class="parameters" type="submit">
+                    <input id="login-button" type="submit">
                   </form>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                 <p class="label">Grid Density:</p>
                     <p><input type="number" name="d" value="1" max="5"></p>
                 {% if logged_in %}
-                # TODO: Create auto-sort jquery field for Yelp categories.
+                <!-- TODO: Create auto-sort jquery field for Yelp categories. -->
                 <p class="label">Category:</p>
                     <p><input type="text" name="c" placeholder="n/a"></p>
                 {% endif %}
