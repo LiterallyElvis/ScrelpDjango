@@ -6,7 +6,7 @@ class Categories(models.Model):
     human_name = models.CharField(max_length=200)
 
     def __unicode__(self):
-        return self.yelp_name
+        return self.human_name
 
 
 class YelpCredentials(models.Model):
