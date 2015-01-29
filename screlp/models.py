@@ -5,6 +5,9 @@ class Categories(models.Model):
     yelp_name = models.CharField(max_length=200)
     human_name = models.CharField(max_length=200)
 
+    def __unicode__(self):
+        return self.yelp_name
+
 
 class YelpCredentials(models.Model):
     user_id = models.IntegerField()
