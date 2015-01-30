@@ -23,7 +23,7 @@ def home(request):
     login = AuthenticationForm()
     register = UserCreationForm()
 
-    # TODO: Allow users to specify which aspects of the results to receive.
+    # TODO: Allow users to specify which results to receive.
 
     if "tries" not in request.session.keys():
         request.session["tries"] = 0
@@ -67,7 +67,6 @@ def autocomplete(request):
     from screlp.models import Categories
     import json
 
-    # if request.is_ajax():
     query = request.GET.get("term")
     query_results = Categories.objects.all().filter(yelp_name__startswith=query)
     results = []
@@ -80,9 +79,7 @@ def autocomplete(request):
     data = json.dumps(results)
 
     return HttpResponse(data, "application/json")
-    # response.__setitem__("Content-type", "application/json")
-    # response.__setitem__("Access-Control-Allow-Origin", "*")
-    # return response
+
 
 def login(request):
     message = "unset"
@@ -112,7 +109,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            new_user = auth.authenticate(username=request.POST['username'], password=request.POST['password1'])
+            new_user = auth.authenticate(username=request.POST['usernameme'], password=request.POST['password1'])
             auth.login(request, new_user)
             return redirect("/")
         else:
@@ -130,8 +127,8 @@ def reset_demo_access(request):
 def result(request):
     args = dict()
     creds = list()
-    tracking = list()
-    if "visited" in request.session:
+
+    if False: # TODO: user authentication check
         creds = [request.session["con_key"], request.session["con_secret"],
         request.session["token"], request.session["token_secret"]]
     else:
@@ -139,11 +136,11 @@ def result(request):
         if "tries" not in request.session.keys():
             request.session["tries"] = 1
         else:
-            if request.session["tries"] >= settings.TRIES_ALLOWED:
+            if request.session["tries"] >= settings.TRIES_ALLOWED and not request.user.is_authenticated():
                 return redirect("/")
-            request.session["tries"] += 1
+            else: 
+                request.session["tries"] += 1
 
-    creds = settings.YELP_CREDENTIALS  # demo API credentials.
     args["address"] = request.GET.get("a")
     # TODO: handle when address is not passed
     args["term"] = request.GET.get("t")
