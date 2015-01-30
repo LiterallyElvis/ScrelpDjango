@@ -91,3 +91,13 @@ input {
     margin-top: 1.5em;
     min-width: 5em;
 }
+
+.ui-autocomplete{
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
+.ui-helper-hidden-accessible{
+    display: none;
+}

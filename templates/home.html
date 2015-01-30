@@ -36,9 +36,22 @@
               $("#category").autocomplete({
                   source: "/autocomplete/",
                   minLength: 2,
-                  appendTo: "#category",
+                  position: {
+                      my: "top",
+                      at: "bottom",
+                      of: $("#category")
+                  },
+                  open: function(event, ui){
+                     $("#button").hide();
+                     $("#category").css("margin-bottom", "75px");
+                  },
+                  close: function(event, ui){
+                     $("#button").show();
+                     $("#category").css("margin-bottom", "");
+                  },
                   select: function(event, ui){
                      $("#category").value = ui.item.value;
+                     $("#button").show();
                   }
               });
             });
@@ -95,6 +108,7 @@
                 <!-- TODO: Create auto-sort jquery field for Yelp categories. -->
                 <label for="category" class="label">Category:</p>
                     <p><input type="text" name="c" id="category" placeholder="optional"></p>
+		    <div class="label" id="autocomplete-results"></div>
                 {% endif %}
                 <input type="submit" id="button" value="Go!">
             </form>
