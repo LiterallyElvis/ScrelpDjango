@@ -64,10 +64,25 @@ def beta(request):
 
 
 def autocomplete(request):
-    query = request.GET.get("q")
-    query_result = Categories.object.filter(yelp_name__startswith=query)
-    return HttpResponse(query_result)
+    from screlp.models import Categories
+    import json
 
+    # if request.is_ajax():
+    query = request.GET.get("term")
+    query_results = Categories.objects.all().filter(yelp_name__startswith=query)
+    results = []
+    for result in query_results:
+        category = {}
+        category["id"] = result.id
+        category["label"] = result.human_name
+        category["value"] = result.yelp_name
+        results.append(category)
+    data = json.dumps(results)
+
+    return HttpResponse(data, "application/json")
+    # response.__setitem__("Content-type", "application/json")
+    # response.__setitem__("Access-Control-Allow-Origin", "*")
+    # return response
 
 def login(request):
     message = "unset"

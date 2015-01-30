@@ -10,6 +10,7 @@ urlpatterns = patterns("",
 
     url(r"^$", views.home, name="index"),
     url(r"^search/", views.result),
+    url(r"^autocomplete/", views.autocomplete),
     url(r"^login/", views.login),
     url(r"^logout/", views.logout),
     url(r"^register/", views.register),

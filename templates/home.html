@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <title>Screlp</title>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function(){
               $("#demo-launch").click(function() {
@@ -30,6 +31,15 @@
                   $(".login").toggleClass("selected-choice");
                   $(".register").toggleClass("selected-choice");
                 };
+              });
+
+              $("#category").autocomplete({
+                  source: "/autocomplete/",
+                  minLength: 2,
+                  appendTo: "#category",
+                  select: function(event, ui){
+                     $("#category").value = ui.item.value;
+                  }
               });
             });
         </script>
@@ -83,8 +93,8 @@
                     <p><input type="number" name="d" value="1" max="5"></p>
                 {% if logged_in %}
                 <!-- TODO: Create auto-sort jquery field for Yelp categories. -->
-                <p class="label">Category:</p>
-                    <p><input type="text" name="c" placeholder="n/a"></p>
+                <label for="category" class="label">Category:</p>
+                    <p><input type="text" name="c" id="category" placeholder="optional"></p>
                 {% endif %}
                 <input type="submit" id="button" value="Go!">
             </form>
