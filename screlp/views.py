@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.context_processors import csrf
 from screlp.backend import parse, geog, connect
 from screlp import models
+from screlp.forms import RegistrationForm
 import time
 
 
@@ -49,10 +50,12 @@ def home(request):
 
 
 def beta(request):
+    from screlp.forms import RegistrationForm
+    from screlp.forms import LoginForm
     c = {}
     c.update(csrf(request))
-    login = AuthenticationForm()
-    register = UserCreationForm()
+    login = LoginForm()
+    register = RegistrationForm()
 
     phrase = "You have 1 try available."
     return render(request, "beta.html", {"logged_in": False,
@@ -105,11 +108,11 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        #form = forms.RegistrationForm(request.POST)
-        form = UserCreationForm(request.POST)
+        form = RegistrationForm(request.POST)
+        #form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            new_user = auth.authenticate(username=request.POST['usernameme'], password=request.POST['password1'])
+            new_user = auth.authenticate(username=request.POST['user_email'], password=request.POST['password'])
             auth.login(request, new_user)
             return redirect("/")
         else:
