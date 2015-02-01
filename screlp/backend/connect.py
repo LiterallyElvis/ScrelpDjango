@@ -21,7 +21,7 @@ def make_url(args, coords):
     """
 
     url = "http://api.yelp.com/v2/search?"
-    lat, long = coords
+    lat, lon = coords
     if args['term']:
         url += "&term={0}".format(args['term']).replace(" ", "+")
     if args['radius']:
@@ -30,7 +30,7 @@ def make_url(args, coords):
         url += "&radius_filter={0}".format(radius)
     if args['category']:
         url += "&category_filter={0}".format(args['category']).replace(" ", "+")
-    url += "&ll={0},{1}".format(lat, long)
+    url += "&ll={0},{1}".format(lat, lon)
 
     return url
 
