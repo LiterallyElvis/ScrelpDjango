@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.modles import User
+from django.contrib.auth.models import AbstractBaseUser
 
 
 class Categories(models.Model):
@@ -10,13 +10,14 @@ class Categories(models.Model):
         return self.human_name
 
 
-class YelpCredentials(models.Model):
-    user = models.OneToOneField(User)
-    consumer_key = models.CharField(max_length=100)
-    consumer_secret = models.CharField(max_length=100)
-    token = models.CharField(max_length=100)
-    token_secret = models.CharField(max_length=100)
+class ScrelpUser(AbstractBaseUser):
+    username = models.EmailField(max_length=200)    
+
+    yelp_consumer_key = models.CharField(max_length=100)
+    yelp_consumer_secret = models.CharField(max_length=100)
+    yelp_token = models.CharField(max_length=100)
+    yelp_token_secret = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return (self.user_id, self.consumer_key)
+        return (self.username)
 
