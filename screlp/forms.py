@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*- 
 
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from screlp.models import ScrelpUser
 
 
 class LoginForm(forms.Form):
-    user_email = forms.EmailField(widget=forms.TextInput(attrs={'class':'parameters'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'parameters'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'parameters'}))
 
 
 class RegistrationForm(forms.ModelForm):
-    user_email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'email@example.com'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'email@example.com'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'•••••••••••••••••••••••••'}))
     password_verify = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'verify password'}))
 
     class Meta:
-        model = User
-        fields = ("email",)
-        exclude = ["email"]  # this is so dumb
+        model = ScrelpUser
+        fields = ("email", "password", "password_verify")
+
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password")
@@ -29,6 +28,7 @@ class RegistrationForm(forms.ModelForm):
                 code='password_mismatch',
             )
         return password2
+
 
     def save(self, commit=True):
         user = super(RegistrationForm, self).save(commit=False)

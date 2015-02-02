@@ -111,9 +111,11 @@ def register(request):
         form = RegistrationForm(request.POST)
         #form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            new_user = auth.authenticate(username=request.POST['user_email'], password=request.POST['password'])
-            auth.login(request, new_user)
+            new_user = form.save()
+            new_user.set_password(request.POST["password"])
+            new_user.save()
+            #new_user = auth.authenticate(username=username, password=password)
+            #auth.login(request, new_user)
             return redirect("/")
         else:
             return HttpResponse("It didn't work! {0}".format(form.errors))
