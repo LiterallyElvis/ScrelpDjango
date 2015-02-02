@@ -101,3 +101,36 @@ input {
 .ui-helper-hidden-accessible{
     display: none;
 }
+
+#arrow-indicator{
+    text-align: left;
+    color: #C4FF80;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+#map-canvas{
+    border-radius: 1em;
+    border: inset;
+    margin-bottom: 1em;
+}
+
+table, th, td {
+    border: .2em solid #313F20;
+}
+
+#results-table {
+    font-family: 'Raleway', sans-serif;
+    font-size: .9em;
+    color: #E8FFCC;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th{
+    background: #313F20;
+}
+
+td {
+    text-align: center;
+}
