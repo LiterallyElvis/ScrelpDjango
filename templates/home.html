@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-    {% load staticfiles %}
-    <link type="text/css" rel="stylesheet" href="{% static "css/home.css" %}"/>
-    <link href='http://fonts.googleapis.com/css?family=Raleway|Pacifico' rel='stylesheet' type='text/css'>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>Screlp</title>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{% extends "base.html" %}
+        {% block extra_js %}
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
         <script>
             $(document).ready(function(){
@@ -56,8 +49,8 @@
               });
             });
         </script>
-    </head>
-    <body>
+        {% endblock %}
+        {% block body %}
         <div><a href="http://exceptnot.com" id="logo-link"><h2 class="site-logo">Screlp</h2></a></div>
         {% if not logged_in %}
         <div class="container">
@@ -112,5 +105,4 @@
                 <input type="submit" id="button" value="Go!">
             </form>
         </div>
-    </body>
-</html>
+    {% endblock %}
