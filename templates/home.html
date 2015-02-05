@@ -51,6 +51,9 @@
         </script>
         {% endblock %}
         {% block body %}
+        {% if not logged_in %}
+        <div><a href="/logout"><span class="mega-octicon octicon-sign-out logout"></span></a></div>
+        {% endif %}
         <div><a href="http://exceptnot.com" id="logo-link"><h2 class="site-logo">Screlp</h2></a></div>
         {% if not logged_in %}
         <div class="container">
@@ -67,7 +70,7 @@
                   <form action="/login/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     {% for field in login %}
-                    <p {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}>{{ field }}</p>
+                    <p>{{ field }}</p>
                     {% endfor %}
                     <input id="login-button" type="submit">
                   </form>
@@ -76,7 +79,7 @@
                   <form action="/register/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     {% for field in register %}
-                    <p {% if forloop.counter == 1 %}placeholder="example@email.com"{% endif %}{% if forloop.counter == 2 %}placeholder="•••••••••••••••••"{% endif %}{% if forloop.counter == 3 %}placeholder="verify password"{% endif %}>{{ field }}</p>
+                    <p>{{ field }}</p>
                     {% endfor %}
                     <input id="login-button" type="submit">
                   </form>
