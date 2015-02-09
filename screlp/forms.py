@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 from django import forms
 from screlp.models import ScrelpUser
@@ -37,3 +37,9 @@ class RegistrationForm(forms.ModelForm):
             user.save()
         return user
 
+
+class UpdateApiKeyForm(forms.Form):
+    consumer_key = forms.CharField(max_length=23)
+    consumer_secret = forms.CharField(max_length=28)
+    token = forms.CharField(max_length=32)
+    token_secret = forms.CharField(max_length=28)
