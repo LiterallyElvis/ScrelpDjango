@@ -4,6 +4,7 @@ html{
     text-shadow: 1px 1px 0 rgba(49,63, 32,1);
     color: #E8FFCC;
     font-family: 'Raleway', sans-serif;
+    text-decoration: none;
 }
 
 body{
@@ -12,6 +13,15 @@ body{
 
 p{
     margin: .25em;
+}
+
+.actions{
+    float: right;
+    margin: .5em;
+}
+
+.action-icons{
+    color: #313F20;
 }
 
 .site-logo{
