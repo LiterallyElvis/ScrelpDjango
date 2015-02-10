@@ -156,7 +156,7 @@ def result(request):
     args["category"] = request.GET.get("c")
     radius = int(args["radius"]) * 1609.34  # convert to meters
 
-    start = time.time()
+    # start = time.time()
     origin = geog.get_geocode(args)
     coords = geog.generate_coords(origin, int(args["density"]), int(args["radius"]))
     yelp_results = parse.scrape_yelp(args, coords, creds)
