@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		{% block header %}
-		{% if logged_in %}
+		{% if user.is_authenticated %}
 		<div class="actions">
 			<a href="/settings"><span class="mega-octicon octicon-gear action-icons"></span></a>
 			<a href="/logout"><span class="mega-octicon octicon-sign-out logout action-icons"></span></a>
