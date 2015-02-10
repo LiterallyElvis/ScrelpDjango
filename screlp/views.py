@@ -8,8 +8,7 @@ from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.context_processors import csrf
 from screlp.backend import parse, geog, connect
-from screlp import models
-from screlp.forms import RegistrationForm
+from screlp import models, forms
 import time
 
 
@@ -50,12 +49,10 @@ def home(request):
 
 
 def beta(request):
-    from screlp.forms import RegistrationForm
-    from screlp.forms import LoginForm
     c = {}
     c.update(csrf(request))
-    login = LoginForm()
-    register = RegistrationForm()
+    login = forms.LoginForm()
+    register = forms.RegistrationForm()
 
     phrase = "You have 1 try available."
     return render(request, "beta.html", {"logged_in": False,
@@ -108,7 +105,7 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = forms.RegistrationForm(request.POST)
         #form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
@@ -122,6 +119,11 @@ def register(request):
     else:
         request.session["register_error"] = True
         return HttpResponse("It didn't work!")
+
+
+def settings(request):
+    form = forms.UpdateApiKeyForm()
+    return render(request, "settings.html", {"api_update": form})
 
 
 def reset_demo_access(request):
@@ -143,7 +145,7 @@ def result(request):
         else:
             if request.session["tries"] >= settings.TRIES_ALLOWED and not request.user.is_authenticated():
                 return redirect("/")
-            else: 
+            else:
                 request.session["tries"] += 1
 
     args["address"] = request.GET.get("a")

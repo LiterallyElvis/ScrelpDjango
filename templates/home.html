@@ -72,18 +72,14 @@
                 <div class="login-entry" id="login" style="display: none;">
                   <form action="/login/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    {% for field in login %}
-                    <p>{{ field }}</p>
-                    {% endfor %}
+                    {{ login.as_p }}
                     <input id="login-button" type="submit">
                   </form>
                 </div>
                 <div class="login-entry" id="register">
                   <form action="/register/" method="post">
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    {% for field in register %}
-                    <p>{{ field }}</p>
-                    {% endfor %}
+                    {{ register.as_p }}
                     <input id="login-button" type="submit">
                   </form>
                 </div>

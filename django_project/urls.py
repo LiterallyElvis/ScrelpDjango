@@ -14,6 +14,7 @@ urlpatterns = patterns("",
     url(r"^login/", views.login),
     url(r"^logout/", views.logout),
     url(r"^register/", views.register),
+    url(r"^settings/", views.settings),
     url(r"^reset/", views.reset_demo_access),
     url(r"^beta/", views.beta)
 )

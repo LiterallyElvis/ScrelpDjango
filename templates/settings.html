@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block body %}
+<form action="/update/" method="post">
+{{ api_update.as_p }}
+<input id="login-button" type="submit">
+</form>
+{% endblock %}
