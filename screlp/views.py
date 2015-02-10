@@ -121,7 +121,7 @@ def register(request):
         return HttpResponse("It didn't work!")
 
 
-def settings(request):
+def settings_page(request):
     form = forms.UpdateApiKeyForm()
     return render(request, "settings.html", {"api_update": form})
 
