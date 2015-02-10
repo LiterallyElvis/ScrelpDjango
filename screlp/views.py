@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.context_processors import csrf
 from screlp.backend import parse, geog, connect
 from screlp import models, forms
-import time
+# import time
 
 
 def home(request):
@@ -160,7 +160,7 @@ def result(request):
     origin = geog.get_geocode(args)
     coords = geog.generate_coords(origin, int(args["density"]), int(args["radius"]))
     yelp_results = parse.scrape_yelp(args, coords, creds)
-    time_taken = "Execution time: {:.2f} {}".format((time.time() - start), "seconds")
+    # time_taken = "Execution time: {:.2f} {}".format((time.time() - start), "seconds")
 
     orglat, orglong = origin
 
@@ -169,5 +169,4 @@ def result(request):
                                            "lat": orglat,
                                            "long": orglong,
                                            "radius": radius,
-                                           "yelp_results": yelp_results,
-                                           "exec_time": time_taken})
+                                           "yelp_results": yelp_results})
