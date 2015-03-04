@@ -5,6 +5,8 @@
             $(document).ready(function(){
               $("#demo-launch").click(function() {
                 $(".info-entry").hide();
+                $("#demo-launch").hide();
+                $("#demo-phrase").hide();
                 $(".query-entry").fadeIn("slow");
               });
 
@@ -77,6 +79,8 @@
                   </form>
                 </div>
             </div>
+           <p><a href="#" id="demo-launch">I'd like a demo!</a></p>
+           <p><sup id="demo-phrase">{{ phrase }}</sup>
         </div>
         <div class="query-entry" id="demo" style="display: none;">
         {% endif %}
